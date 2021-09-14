@@ -13,6 +13,8 @@ public abstract class UserDAO extends DAO {
 	
 	public abstract User get(String email) throws SQLException;
 	
+	public abstract User get(int id) throws SQLException;
+	
 	public abstract List<User> getAll() throws SQLException;
 	
 	public abstract boolean isAdmin(int id) throws SQLException;

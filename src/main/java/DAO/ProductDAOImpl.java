@@ -17,7 +17,7 @@ public class ProductDAOImpl extends ProductDAO {
 			+ "FROM products "
 			+ "INNER JOIN categories ON categories.id=products.category_id "
 			+ "INNER JOIN producer ON products.producer_id=producer.id "
-			+ "WHERE products.name=?";
+			+ "WHERE products.id=?";
 	
 	public static final String GET_ALL = 
 			"SELECT products.name,categories.name AS category,number,price,photo "
@@ -65,7 +65,7 @@ public class ProductDAOImpl extends ProductDAO {
 	}
 
 	@Override
-	public Product get(String name) throws SQLException {
+	public Product get(int id) throws SQLException {
 		Product prod = new Product();
 		Connection con = null;
 		PreparedStatement stat = null;
@@ -73,7 +73,7 @@ public class ProductDAOImpl extends ProductDAO {
 		try {
 			con = getConnection();
 			stat = con.prepareStatement(GET);
-			stat.setString(1, name);
+			stat.setInt(1, id);
 			res = stat.executeQuery();
 			if (res.next()) {
 				prod.setId(res.getInt("id"));

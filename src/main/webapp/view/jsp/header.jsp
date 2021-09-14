@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="entities.User" %>
+<%@ page import="entities.*" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +58,13 @@
             	</div>
             	<img src="http://localhost:8080/final/view/media/cart.svg">
             	<div class="w_h_c_num">
-            		3
+            		<%
+            			Order order = (Order)request.getSession().getAttribute("order");
+            			if (order != null)
+            				out.println(order.getCart().size());
+            			else
+            				out.println(0);
+            		%>
             	</div>
             </a>
         </div>

@@ -79,6 +79,9 @@ public class FrontController extends HttpServlet {
 			case "/admin_user":
 			case "/delete_user":
 			case "/sign_out":
+			case "/remove_product":
+			case "/set_paid":
+			case "/reject_order":
 				doPost(request, response);
 				break;
 			case "/create_product":
@@ -87,6 +90,12 @@ public class FrontController extends HttpServlet {
 				break;
 			case "/cart":
 				OrderController.build(request, response, servletContext);
+				break;
+			case "/order_conflict":
+				OrderController.orderConflict(request, response, servletContext);
+				break;
+			case "/admin_orders":
+				AdminController.buildOrders(request, response, servletContext);
 				break;
 			}
 		} catch (Exception e) {
@@ -130,6 +139,21 @@ public class FrontController extends HttpServlet {
 				break;
 			case "/add_product":
 				OrderController.addProduct(request, response);
+				break;
+			case "/confirm_order":
+				OrderController.confirmOrder(request, response);
+				break;
+			case "/manage_carts":
+				OrderController.manageCarts(request, response);
+				break;
+			case "/remove_product":
+				OrderController.removeProducts(request, response);
+				break;
+			case "/set_paid":
+				AdminController.setPaid(request, response);
+				break;
+			case "/reject_order":
+				AdminController.rejectOrder(request, response);
 				break;
 			}
 		} catch (Exception e) {

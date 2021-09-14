@@ -31,10 +31,18 @@ public class OrderDAOImpl extends OrderDAO {
 			+ "INNER JOIN orders ON orders.id=orders_products.order_id "
 			+ "WHERE user_id=? AND orders.state=\"preparing\"";
 	
+	private static final String GET_BY_STATE =
+			"SELECT orders.id,orders.state,user_id,product_id \r\n"
+			+ "FROM orders_products \r\n"
+			+ "INNER JOIN orders ON orders.id=orders_products.order_id\r\n"
+			+ "INNER JOIN products ON products.id=orders_products.product_id\r\n"
+			+ "WHERE state=?";
+	
 	private static final String GET_ALL =
 			"SELECT orders.id,orders.state,user_id,product_id "
 			+ "FROM orders_products "
-			+ "INNER JOIN orders ON orders.id=orders_products.order_id";
+			+ "INNER JOIN orders ON orders.id=orders_products.order_id "
+			+ "WHERE state!='preparing'";
 	
 	private static final String CREATE =
 			"INSERT INTO orders (user_id) "
@@ -70,15 +78,14 @@ public class OrderDAOImpl extends OrderDAO {
 			stat = con.prepareStatement(GET_BY_ID);
 			stat.setInt(1, id);
 			res = stat.executeQuery();
-			order = new Order();
 			if (res.next()) {
+				order = new Order();
 				order.setId(Integer.valueOf(res.getString("orders.id")));
 				order.setUserId(Integer.valueOf(res.getString("user_id")));
 				order.setState(res.getString("orders.state"));
-				List<Product> cart = new ArrayList<>();
+				List<Integer> cart = new ArrayList<>();
 				do {
-					Product prod = new Product();
-					prod.setId(Integer.valueOf(res.getString("product_id")));
+					cart.add(Integer.valueOf(res.getString("product_id")));
 				} while (res.next());
 				order.setCart(cart);
 			}
@@ -103,13 +110,12 @@ public class OrderDAOImpl extends OrderDAO {
 			stat = con.prepareStatement(GET_BY_USER);
 			stat.setInt(1, user.getId());
 			res = stat.executeQuery();
-			order = new Order();
 			if (res.next()) {
+				order = new Order();
 				order.setId(Integer.valueOf(res.getString("orders.id")));
-				List<Product> cart = new ArrayList<>();
+				List<Integer> cart = new ArrayList<>();
 				do {
-					Product prod = new Product();
-					prod.setId(Integer.valueOf(res.getString("product_id")));
+					cart.add(Integer.valueOf(res.getString("product_id")));
 				} while (res.next());
 				order.setCart(cart);
 			}
@@ -136,12 +142,12 @@ public class OrderDAOImpl extends OrderDAO {
 			while (res.next()) {
 				Order order = new Order();
 				order.setId(Integer.valueOf(res.getString("orders.id")));
+				order.setUserId(Integer.valueOf(res.getString("user_id")));
 				int id = order.getId();
 				order.setState(res.getString("orders.state"));
-				List<Product> cart = new ArrayList<>();
+				List<Integer> cart = new ArrayList<>();
 				do {
-					Product prod = new Product();
-					prod.setId(Integer.valueOf(res.getString("product_id")));
+					cart.add(Integer.valueOf(res.getString("product_id")));
 				} while (res.next() && id == Integer.valueOf(res.getString("orders.id")));
 				order.setCart(cart);
 				orders.add(order);
@@ -186,14 +192,14 @@ public class OrderDAOImpl extends OrderDAO {
 	}
 
 	@Override
-	public boolean addProduct(int id, Product prod) throws SQLException {
+	public boolean addProduct(int id, int product_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement stat = null;
 		try {
 			con = getConnection();
 			stat = con.prepareStatement(ADD);
 			stat.setInt(1, id);
-			stat.setInt(2, prod.getId());
+			stat.setInt(2, product_id);
 			stat.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -205,14 +211,14 @@ public class OrderDAOImpl extends OrderDAO {
 	}
 
 	@Override
-	public boolean removeProduct(int id, Product prod) throws SQLException {
+	public boolean removeProduct(int id, int product_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement stat = null;
 		try {
 			con = getConnection();
 			stat = con.prepareStatement(REMOVE);
 			stat.setInt(1, id);
-			stat.setInt(2, prod.getId());
+			stat.setInt(2, product_id);
 			stat.executeUpdate();
 			return true;
 		} catch (Exception e) {

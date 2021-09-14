@@ -15,9 +15,9 @@ import DAO.*;
 public class ProductController {
 	
 	public static void build(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
-		String name = request.getParameter("name");
+		int id = Integer.valueOf(request.getParameter("id"));
 		ProductDAO dao = DAOFactory.getProductDAO();
-		Product prod = dao.get(name);
+		Product prod = dao.get(id);
 		
 		request.setAttribute("product", prod);
 		

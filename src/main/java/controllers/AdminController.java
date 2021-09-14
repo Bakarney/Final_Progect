@@ -3,18 +3,20 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import DAO.*;
-import entities.Product;
-import entities.User;
+import entities.*;
 
 public class AdminController {
 	
@@ -44,8 +46,8 @@ public class AdminController {
 	
 	public static void buildProduct(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
 		ProductDAO dao = DAOFactory.getProductDAO();
-		String name = request.getParameter("name");
-		Product prod = dao.get(name);
+		int id = Integer.valueOf(request.getParameter("id"));
+		Product prod = dao.get(id);
 		request.setAttribute("product", prod);
 		
 		RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/view/jsp/admin_product.jsp");
@@ -58,6 +60,28 @@ public class AdminController {
 		request.setAttribute("users", users);
 		
 		RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/view/jsp/admin_users.jsp");
+		requestDispatcher.forward(request, response);
+	}
+	
+	public static void buildOrders(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
+		ProductDAO prodDAO = DAOFactory.getProductDAO();
+		UserDAO userDAO = DAOFactory.getUserDAO();
+		OrderDAO orderDAO = DAOFactory.getOrderDAO();
+		Map<Integer, String> products = new HashMap<>();
+		Map<Integer, String> users = new HashMap<>();
+		List<Order> orders = orderDAO.getAll();
+		
+		for (Order order : orders) {
+			users.put(order.getUserId(), userDAO.get(order.getUserId()).getName());
+			for (Integer i : order.getCart())
+				products.put(i, prodDAO.get(i).getName());
+		}
+		
+		request.setAttribute("orders", orders);
+		request.setAttribute("products", products);
+		request.setAttribute("users", users);
+		
+		RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/view/jsp/admin_orders.jsp");
 		requestDispatcher.forward(request, response);
 	}
 	
@@ -177,5 +201,21 @@ public class AdminController {
     	UserDAO dao = DAOFactory.getUserDAO();
     	dao.delete(Integer.valueOf(request.getParameter("id")));
     	response.sendRedirect("http://localhost:8080/final/server/admin_users");
+    }
+    
+    public static void setPaid(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    	OrderDAO orderDAO = DAOFactory.getOrderDAO();
+    	int id = Integer.valueOf(request.getParameter("id"));
+    	orderDAO.setState(id, "paid");
+    	
+    	response.sendRedirect("http://localhost:8080/final/server/admin_orders");
+    }
+    
+    public static void rejectOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    	OrderDAO orderDAO = DAOFactory.getOrderDAO();
+    	int id = Integer.valueOf(request.getParameter("id"));
+    	orderDAO.setState(id, "rejected");
+    	
+    	response.sendRedirect("http://localhost:8080/final/server/admin_orders");
     }
 }

@@ -157,14 +157,14 @@
                     	k++;
                     	if (k % 4 == 1)
                     		out.println("<div class=\"s_row\">");
-                    	html = "<a href=\"product?name=%s\" class=\"product\" >" +
+                    	html = "<a href=\"product?id=%d\" class=\"product\" >" +
                                 "<img src=\"http://localhost:8080/final/view/media/%s/%s\" >" +
                                 "<div class=\"p_info\" class=\"scale\">" +
                                 "<p class=\"p_i_text\">%s</p>" +
                                 "<p href=\"\" class=\"p_i_price\">$%.2f</p>" +
                                 "</div>" +
                             	"</a>";
-                        out.println(String.format(html, prod.getName(), prod.getCategory(), prod.getPhoto(), prod.getName(), prod.getPrice()));
+                        out.println(String.format(html, prod.getId(), prod.getCategory(), prod.getPhoto(), prod.getName(), prod.getPrice()));
                     	if (k % 4 == 0)
                     		out.println("</div>");
                     }

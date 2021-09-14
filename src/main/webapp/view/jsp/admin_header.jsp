@@ -33,7 +33,7 @@
                 <a href="http://localhost:8080/final/server/admin_users">Users</a>
                 <a href="http://localhost:8080/final/server/admin_categories">Categories</a>
                 <a href="http://localhost:8080/final/server/admin_producers">Producers</a>
-                <a href="http://localhost:8080/final/server/admin_producers">Orders</a>
+                <a href="http://localhost:8080/final/server/admin_orders">Orders</a>
             </div>
             <div class="w_h_blank"></div>
         </div>

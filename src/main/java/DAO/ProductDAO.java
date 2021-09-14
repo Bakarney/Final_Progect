@@ -9,7 +9,7 @@ public abstract class ProductDAO extends DAO {
 	
 	protected ProductDAO() { }
 	
-	public abstract Product get(String name) throws SQLException;
+	public abstract Product get(int id) throws SQLException;
 	
 	public abstract List<Product> getAll() throws SQLException;
 	

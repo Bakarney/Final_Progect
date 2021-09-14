@@ -36,16 +36,17 @@
                             "<td>%s</td>" +
                             "<td>%.2f</td>" +
                             "<td><a class=\"link\" href=\"http://localhost:8080/final/view/media/%s/%s\">%s</td>" +
+                            "<td><a class=\"link\" href=\"http://localhost:8080/final/server/remove_product?id=%d\">Delete</td>" +
                         	"</tr>";
                 	for (Product prod : products) {
                 		out.println(String.format(html, prod.getName(), prod.getCategory(), 
                 				prod.getGender(), prod.getProducer(), prod.getPrice(), 
-                				prod.getCategory(), prod.getPhoto(), prod.getPhoto()));
+                				prod.getCategory(), prod.getPhoto(), prod.getPhoto(), prod.getId()));
                 	}
                 %>
             </table>
-            <form method="POST" action="http://localhost:8080/final/server/confirm">
-            	<input class="hidden" value="${order.getId()}">
+            <form method="POST" action="http://localhost:8080/final/server/confirm_order">
+            	<input type="hidden" name="order_id" value="${order.getId()}">
             	<input class="button" type="submit" value="Buy">
             </form>
         </div>

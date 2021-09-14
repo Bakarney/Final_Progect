@@ -9,9 +9,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import DAO.*;
+import javax.servlet.http.HttpSession;
 
-import entities.User;
+import DAO.*;
+import entities.*;
 
 public class UserController {
 	public static void signIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
@@ -19,6 +20,7 @@ public class UserController {
 		String password = request.getParameter("password");
 		UserDAO dao = DAOFactory.getUserDAO();
 		User user = dao.get(email, password);
+		HttpSession session = request.getSession();
 		if (user.getName() == null) {
 			response.sendRedirect("http://localhost:8080/final/server/sign_in?error=wrong");
 			return;
@@ -27,14 +29,27 @@ public class UserController {
 			response.sendRedirect("http://localhost:8080/final/server/sign_in?error=blocked");
 			return;
 		}
-		request.getSession().setAttribute("user", user);
+		session.setAttribute("user", user);
 		if (dao.isAdmin(user.getId())) {
 			response.sendRedirect("http://localhost:8080/final/server/admin_catalog");
-			return;
 		}
 		else {
-			response.sendRedirect("http://localhost:8080/final/server/profile");
-			return;
+			Order sessionOrder = (Order)session.getAttribute("order");
+			OrderDAO orderDao = DAOFactory.getOrderDAO();
+			Order cloudOrder = orderDao.get(user);
+			if (sessionOrder != null && cloudOrder != null) {
+				session.setAttribute("cloud_order", cloudOrder);
+				response.sendRedirect("http://localhost:8080/final/server/order_conflict");
+			}
+			else if (sessionOrder != null) {
+				Order order = orderDao.create(user.getId());
+				for (Integer i : sessionOrder.getCart())
+					orderDao.addProduct(order.getId(), i);
+				response.sendRedirect("http://localhost:8080/final/server/profile");
+			} else {
+				session.setAttribute("order", cloudOrder);
+				response.sendRedirect("http://localhost:8080/final/server/profile");
+			}
 		}
 	}
 	
@@ -59,6 +74,7 @@ public class UserController {
 	
 	public static void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		request.getSession().removeAttribute("user");
+		request.getSession().removeAttribute("order");
 		response.sendRedirect("http://localhost:8080/final/server/home");
 	}
 }

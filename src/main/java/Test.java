@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import DAO.*;
@@ -24,20 +25,16 @@ import entities.*;
 import controllers.*;
   
 @WebServlet("/test")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-	maxFileSize = 1024 * 1024 * 10, // 10MB
-	maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class Test extends HttpServlet {
   
 	private static final long serialVersionUID = -1822377043264836486L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		OrderDAO dao = DAOFactory.getOrderDAO();
 		PrintWriter writer = response.getWriter();
-		UserDAO dao = DAOFactory.getUserDAO();
 		try {
-			writer.print(!dao.isActive(3));
-		} catch (SQLException e) {
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }

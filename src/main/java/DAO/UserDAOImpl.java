@@ -22,6 +22,11 @@ public class UserDAOImpl extends UserDAO {
 			+ "FROM users "
 			+ "WHERE email=?";
 	
+	public static final String GET_BY_ID = 
+			"SELECT id,name,email,phone,addres,card,admin,status "
+			+ "FROM users "
+			+ "WHERE id=?";
+	
 	public static final String GET_ALL =
 			"SELECT id,name,email,phone,addres,card,admin,status "
 			+ "FROM users";
@@ -98,6 +103,37 @@ public class UserDAOImpl extends UserDAO {
 			con = getConnection();
 			stat = con.prepareStatement(GET_BY_EMAIL);
 			stat.setString(1, email);
+			res = stat.executeQuery();
+			if (res.next()) {
+				user.setName(res.getString("name"));
+				user.setEmail(res.getString("email"));
+				user.setPhone(res.getString("phone"));
+				user.setAddress(res.getString("addres"));
+				user.setCard(res.getString("card"));
+				user.setAdmin(res.getBoolean("admin"));
+				user.setActive(res.getBoolean("status"));
+			}
+			return user;
+		} catch (Exception e) {
+			throw new SQLException("Can not getUserByEmail", e);
+		} finally {
+			close(res);
+			close(stat);
+			close(con);
+		}
+	}
+
+	@Override
+	public User get(int id) throws SQLException {
+		Connection con = null;
+		PreparedStatement stat = null;
+		ResultSet res = null;
+		User user = null;
+		try {
+			user = new User();
+			con = getConnection();
+			stat = con.prepareStatement(GET_BY_ID);
+			stat.setInt(1, id);
 			res = stat.executeQuery();
 			if (res.next()) {
 				user.setName(res.getString("name"));

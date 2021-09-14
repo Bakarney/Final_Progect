@@ -36,7 +36,7 @@
                     <p>${product.getPrice()}</p>
                 </div>
             </div>
-            <form method="POST" action="http://localhost:8080/final/view/media/add_product">
+            <form method="POST" action="http://localhost:8080/final/server/add_product">
             	<input type="hidden" name="product_id" value="${product.getId()}">
             	<input class="button" type="submit" value="Buy">
             </form>

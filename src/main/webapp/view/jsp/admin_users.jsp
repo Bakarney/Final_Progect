@@ -9,8 +9,6 @@
 	<meta charset="ISO-8859-1">
 	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="http://localhost:8080/final/view/css/main.css">
-	<link rel="stylesheet" href="http://localhost:8080/final/view/css/header.css">
-	<link rel="stylesheet" href="http://localhost:8080/final/view/css/menu.css">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/admin.css">
 	<title>Admin users</title>
 </head>

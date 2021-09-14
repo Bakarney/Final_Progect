@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -7,9 +8,10 @@ public class Order {
 	private int id;
 	private int userId;
 	private String state;
-	private List<Product> cart;
+	private List<Integer> cart;
 	
 	public Order() {
+		cart = new ArrayList<>();
 	}
 
 	public int getId() {
@@ -36,11 +38,11 @@ public class Order {
 		this.state = state;
 	}
 
-	public List<Product> getCart() {
+	public List<Integer> getCart() {
 		return cart;
 	}
 
-	public void setCart(List<Product> cart) {
+	public void setCart(List<Integer> cart) {
 		this.cart = cart;
 	}
 }

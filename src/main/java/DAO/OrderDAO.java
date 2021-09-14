@@ -15,9 +15,9 @@ public abstract class OrderDAO extends DAO {
 	
 	public abstract Order create(int userId) throws SQLException;
 	
-	public abstract boolean addProduct(int id, Product prod) throws SQLException;
+	public abstract boolean addProduct(int id, int product_id) throws SQLException;
 	
-	public abstract boolean removeProduct(int id, Product prod) throws SQLException;
+	public abstract boolean removeProduct(int id, int product_id) throws SQLException;
 	
 	public abstract boolean setState(int id, String state) throws SQLException;
 	
