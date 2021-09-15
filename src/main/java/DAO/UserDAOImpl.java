@@ -59,7 +59,15 @@ public class UserDAOImpl extends UserDAO {
 			"DELETE FROM users "
 			+ "WHERE id=?";
 	
-	protected UserDAOImpl() { }
+	private static UserDAOImpl instance;
+	
+	private UserDAOImpl() { }
+	
+	public static synchronized UserDAO getInstance() {
+		if (instance == null)
+			instance = new UserDAOImpl();
+		return instance;
+	}
 
 	@Override
 	public User get(String email, String password) throws SQLException {

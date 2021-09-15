@@ -18,7 +18,15 @@ public class ProducerDAOImpl extends ProducerDAO {
 			"INSERT INTO producer (name) "
 			+ "VALUES (?)";
 	
-	protected ProducerDAOImpl() { }
+	private static ProducerDAOImpl instance;
+	
+	private ProducerDAOImpl() { }
+	
+	public static synchronized ProducerDAO getInstance() {
+		if (instance == null)
+			instance = new ProducerDAOImpl();
+		return instance;
+	}
 
 	@Override
 	public List<String> getAll() throws SQLException {

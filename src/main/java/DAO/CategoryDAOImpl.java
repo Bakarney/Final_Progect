@@ -18,7 +18,15 @@ public class CategoryDAOImpl extends CategoryDAO {
 			"INSERT INTO categories (name) "
 			+ "VALUES (?)";
 	
-	protected CategoryDAOImpl() { }
+	private static CategoryDAOImpl instance;
+	
+	private CategoryDAOImpl() { }
+	
+	public static synchronized CategoryDAO getInstance() {
+		if (instance == null)
+			instance = new CategoryDAOImpl();
+		return instance;
+	}
 
 	@Override
 	public List<String> getAll() throws SQLException {

@@ -61,7 +61,14 @@ public class ProductDAOImpl extends ProductDAO {
 			"DELETE FROM products "
 			+ "WHERE id=?";
 	
-	protected ProductDAOImpl() {
+	private static ProductDAOImpl instance;
+	
+	private ProductDAOImpl() { }
+	
+	public static synchronized ProductDAO getInstance() {
+		if (instance == null)
+			instance = new ProductDAOImpl();
+		return instance;
 	}
 
 	@Override

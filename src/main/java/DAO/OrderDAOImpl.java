@@ -8,9 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Order;
-import entities.Product;
-import entities.User;
+import entities.*;
 
 public class OrderDAOImpl extends OrderDAO {
 	
@@ -30,13 +28,6 @@ public class OrderDAOImpl extends OrderDAO {
 			+ "FROM orders_products "
 			+ "INNER JOIN orders ON orders.id=orders_products.order_id "
 			+ "WHERE user_id=? AND orders.state=\"preparing\"";
-	
-	private static final String GET_BY_STATE =
-			"SELECT orders.id,orders.state,user_id,product_id \r\n"
-			+ "FROM orders_products \r\n"
-			+ "INNER JOIN orders ON orders.id=orders_products.order_id\r\n"
-			+ "INNER JOIN products ON products.id=orders_products.product_id\r\n"
-			+ "WHERE state=?";
 	
 	private static final String GET_ALL =
 			"SELECT orders.id,orders.state,user_id,product_id "
@@ -65,7 +56,15 @@ public class OrderDAOImpl extends OrderDAO {
 			"DELETE FROM orders "
 			+ "WHERE id=?";
 	
-	protected OrderDAOImpl() { }
+	private static OrderDAOImpl instance;
+	
+	private OrderDAOImpl() { }
+	
+	public static synchronized OrderDAO getInstance() {
+		if (instance == null)
+			instance = new OrderDAOImpl();
+		return instance;
+	}
 
 	@Override
 	public Order get(int id) throws SQLException {
