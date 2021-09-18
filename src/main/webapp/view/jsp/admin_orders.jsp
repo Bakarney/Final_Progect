@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.HashMap" %>
@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="http://localhost:8080/final/view/css/main.css">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/admin.css">
@@ -42,8 +42,8 @@
 	               			out.println("<td>" + products.get(i) + "</td>");
 	                		if (firstIter) {
 	                			if (order.getState().equals("registrated")) {
-			                		out.println("<td rowspan=\"" + order.getCart().size() + "\"><a class=\"link\" href=\"http://localhost:8080/final/server/set_paid?id=" + order.getId() + "\">Set Paid</a></td>");
-			                		out.println("<td rowspan=\"" + order.getCart().size() + "\"><a class=\"link\" href=\"http://localhost:8080/final/server/reject_order?id=" + order.getId() + "\">Reject</a></td>");
+			                		out.println("<td rowspan=\"" + order.getCart().size() + "\"><form action=\"http://localhost:8080/final/server/set_paid?id=" + order.getId() + "\" method=\"POST\"><input type=\"submit\" class=\"link\" value=\"Set Paid\"></input></form></td>");
+			                		out.println("<td rowspan=\"" + order.getCart().size() + "\"><form action=\"http://localhost:8080/final/server/reject_order?id=" + order.getId() + "\" method=\"POST\"><input type=\"submit\" class=\"link\" value=\"Reject\"></input></form></td>");
 	                			} else {
 	                				out.println("<td rowspan=\"" + order.getCart().size() + "\">" + order.getState() + "</td>");
 	                			}

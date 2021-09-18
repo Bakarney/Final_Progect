@@ -74,16 +74,6 @@ public class FrontController extends HttpServlet {
 			case "/admin_product":
 				AdminController.buildProduct(request, response, servletContext);
 				break;
-			case "/delete_product":
-			case "/block_user":
-			case "/admin_user":
-			case "/delete_user":
-			case "/sign_out":
-			case "/remove_product":
-			case "/set_paid":
-			case "/reject_order":
-				doPost(request, response);
-				break;
 			case "/create_product":
 				requestDispatcher = servletContext.getRequestDispatcher("/view/jsp/admin_create_product.jsp");
 				requestDispatcher.forward(request, response);
@@ -97,6 +87,9 @@ public class FrontController extends HttpServlet {
 			case "/admin_orders":
 				AdminController.buildOrders(request, response, servletContext);
 				break;
+			default:
+				response.sendError(404);
+				break;
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -107,7 +100,6 @@ public class FrontController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
 		url = url.replaceAll(".*/server", "");
-		ServletContext servletContext = getServletContext();
 		try {
 			switch (url) {
 			case "/sign_in":
@@ -154,6 +146,9 @@ public class FrontController extends HttpServlet {
 				break;
 			case "/reject_order":
 				AdminController.rejectOrder(request, response);
+				break;
+			default:
+				response.sendError(404);
 				break;
 			}
 		} catch (Exception e) {

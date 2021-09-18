@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.List" %>
 <%@ page import="entities.Product" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="http://localhost:8080/final/view/css/main.css">
 	<link rel="stylesheet" href="http://localhost:8080/final/view/css/header.css">
@@ -129,7 +129,7 @@
                             "<td>%.2f</td>" +
                             "<td><a class=\"link\" href=\"http://localhost:8080/final/view/media/%s/%s\">%s</td>" +
                             "<td><a class=\"link\" href=\"http://localhost:8080/final/server/admin_product?name=%s\">Edit</a></td>" +
-                            "<td><a class=\"link\" href=\"http://localhost:8080/final/server/delete_product?id=%d\">Delete</a></td>" +
+                            "<td><form action=\"http://localhost:8080/final/server/delete_product?id=%d\" method=\"POST\"><input type=\"submit\" class=\"link\" value=\"Delete\"></input></form></td>" +
                         	"</tr>";
                 	for (Product prod : products) {
                 		out.println(String.format(html, prod.getId(), prod.getName(), prod.getCategory(), 

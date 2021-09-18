@@ -7,8 +7,6 @@ import entities.User;
 
 public abstract class UserDAO extends DAO {
 	
-	protected UserDAO() { }
-	
 	public abstract User get(String email, String password) throws SQLException;
 	
 	public abstract User get(String email) throws SQLException;

@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.List" %>
 <%@ page import="entities.User" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="http://localhost:8080/final/view/css/main.css">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/admin.css">
@@ -38,9 +38,9 @@
                             "<td>%s</td>" +
                             "<td>%s</td>" +
                             "<td>%s</td>" +
-                            "<td><a class=\"link\" href=\"http://localhost:8080/final/server/block_user?id=%d\">%s</a></td>" +
-                            "<td><a class=\"link\" href=\"http://localhost:8080/final/server/admin_user?id=%d\">Admin</a></td>" +
-                            "<td><a class=\"link\" href=\"http://localhost:8080/final/server/delete_user?id=%d\">Delete</a></td>" +
+                            "<td><form action=\"http://localhost:8080/final/server/block_user?id=%d\" method=\"POST\"><input type=\"submit\" class=\"link\" value=\"%s\"></input></form></td>" +
+                            "<td><form action=\"http://localhost:8080/final/server/admin_user?id=%d\" method=\"POST\"><input type=\"submit\" class=\"link\" value=\"Admin\"></input></form></td>" +
+                            "<td><form action=\"http://localhost:8080/final/server/delete_user?id=%d\" method=\"POST\"><input type=\"submit\" class=\"link\" value=\"Delete\"></input></form></td>" +
                         	"</tr>";
                 	for (User user : users) {
                 		out.println(String.format(html, user.getId(), user.getName(), user.getEmail(), 

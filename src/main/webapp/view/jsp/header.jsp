@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="entities.*" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,16 +28,16 @@
 	            	String html;
 	            	User user = (User)session.getAttribute("user");
 	            	if (user == null) {
-	            		html = "<a href=\"http://localhost:8080/final/server/sign_in\" class=\"profile\">" +
+	            		html = "<a href=\"http://localhost:8080/final/server/sign_in\" class=\"profile_link\">" +
 	                    		"<p>Sign in</p>" +
 	                        	"</a>";
 	            	} else {
-	            		html = "<a href=\"http://localhost:8080/final/server/profile\" class=\"profile\">" +
+	            		html = "<a href=\"http://localhost:8080/final/server/profile\" class=\"profile_link\">" +
 	                    		"<p>" + user.getName() + "</p>" +
 	                        	"</a>" +
-	                        	"<a href=\"http://localhost:8080/final/server/sign_out\" class=\"profile\">" +
-	                    		"<p>Sign out</p>" +
-	                        	"</a>";
+	                        	"<form class=\"form\" method=\"POST\" action=\"http://localhost:8080/final/server/sign_out\">" +
+	                    		"<input type=\"submit\" class=\"profile\" value=\"Sign out\"></input>" +
+	                        	"</form>";
 	            	}
 	            	out.println(html);
 	            %>

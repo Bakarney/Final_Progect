@@ -18,6 +18,10 @@ public class ProducerDAOImpl extends ProducerDAO {
 			"INSERT INTO producer (name) "
 			+ "VALUES (?)";
 	
+	public static final String DELETE =
+			"DELETE FROM producer "
+			+ "WHERE name=?";
+	
 	private static ProducerDAOImpl instance;
 	
 	private ProducerDAOImpl() { }
@@ -71,7 +75,19 @@ public class ProducerDAOImpl extends ProducerDAO {
 
 	@Override
 	public boolean delete(String name) {
-		// TODO Auto-generated method stub
-		return false;
+		Connection con = null;
+		PreparedStatement stat = null;
+		try {
+			con = getConnection();
+			stat = con.prepareStatement(DELETE);
+			stat.setString(1, name);
+			stat.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			return false;
+		} finally {
+			close(stat);
+			close(con);
+		}
 	}
 }

@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="entities.Product" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,24 +18,32 @@
     <div class="body">
         <div class="folder">
             <img src="http://localhost:8080/final/view/media/${product.getCategory()}/${product.getPhoto()}">
-            <div class="data">
-                <div class="fields">
-                    <p>Name:</p>
-                    <p>Category:</p>
-                    <p>Description:</p>
-                    <p>Gender:</p>
-                    <p>Producer:</p>
-                    <p>Price:</p>
-                </div>
-                <div class="info">
-                    <p>${product.getName()}</p>
-                    <p>${product.getCategory()}</p>
-                    <p>${product.getDescription()}</p>
-                    <p>${product.getGender()}</p>
-                    <p>${product.getProducer()}</p>
-                    <p>${product.getPrice()}</p>
-                </div>
-            </div>
+            <table class="data">
+                <tr>
+                    <td>Name:</td>
+                    <td>${product.getName()}</td>
+                </tr>
+                <tr>
+                    <td>Category:</td>
+                    <td>${product.getCategory()}</td>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td>${product.getDescription()}</td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td>${product.getGender()}</td>
+                </tr>
+                <tr>
+                    <td>Producer:</td>
+                    <td>${product.getProducer()}</td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td>${product.getPrice()}</td>
+                </tr>
+            </table>
             <form method="POST" action="http://localhost:8080/final/server/add_product">
             	<input type="hidden" name="product_id" value="${product.getId()}">
             	<input class="button" type="submit" value="Buy">

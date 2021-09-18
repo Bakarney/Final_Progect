@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +35,7 @@
                 </form>
                 <div class="a_i_info">
                     <h1>Contact Info</h1>
-                    01001 Kyiv, Khreshchatyk 101a<br>
+                    01001Â Kyiv, Khreshchatyk 101a<br>
                     +044 123-78-93
                     <div class="b">conststore@gmail.com</div>
                     <h2>Follow Us</h2>

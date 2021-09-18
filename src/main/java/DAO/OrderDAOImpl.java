@@ -30,7 +30,7 @@ public class OrderDAOImpl extends OrderDAO {
 			+ "WHERE user_id=? AND orders.state=\"preparing\"";
 	
 	private static final String GET_ALL =
-			"SELECT orders.id,orders.state,user_id,product_id "
+			"SELECT orders.id AS id,orders.state AS state,user_id,product_id "
 			+ "FROM orders_products "
 			+ "INNER JOIN orders ON orders.id=orders_products.order_id "
 			+ "WHERE state!='preparing'";
@@ -138,16 +138,19 @@ public class OrderDAOImpl extends OrderDAO {
 			con = getConnection();
 			stat = con.createStatement();
 			res = stat.executeQuery(GET_ALL);
-			while (res.next()) {
+			boolean flag = res.next();
+			while (flag) {
 				Order order = new Order();
-				order.setId(Integer.valueOf(res.getString("orders.id")));
+				order.setId(Integer.valueOf(res.getString("id")));
 				order.setUserId(Integer.valueOf(res.getString("user_id")));
 				int id = order.getId();
-				order.setState(res.getString("orders.state"));
+				order.setState(res.getString("state"));
 				List<Integer> cart = new ArrayList<>();
 				do {
 					cart.add(Integer.valueOf(res.getString("product_id")));
-				} while (res.next() && id == Integer.valueOf(res.getString("orders.id")));
+					System.out.println(res.getString("id"));
+					flag = res.next();
+				} while (flag && id == Integer.valueOf(res.getString("id")));
 				order.setCart(cart);
 				orders.add(order);
 			}

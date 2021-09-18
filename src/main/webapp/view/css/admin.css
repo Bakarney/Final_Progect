@@ -41,4 +41,12 @@ TD, TH {
 }
 .link {
 	color: black;
+	text-decoration: underline;
+	border: none;
+	background: none;
+	font-family: Varela Round;
+	font-size: 16px;
+}
+.link:hover {
+	cursor: pointer;
 }

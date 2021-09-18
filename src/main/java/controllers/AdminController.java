@@ -180,6 +180,7 @@ public class AdminController {
     public static void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
     	ProductDAO dao = DAOFactory.getProductDAO();
     	dao.delete(Integer.valueOf(request.getParameter("id")));
+    	System.out.println("Here");
     	response.sendRedirect("http://localhost:8080/final/server/admin_catalog");
     }
     

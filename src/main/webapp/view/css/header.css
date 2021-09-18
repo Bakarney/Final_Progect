@@ -17,23 +17,41 @@
     margin: 3px;
     width: 1.5vw;
 }
-.profile {
+.profile_link {
     height: 80%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     text-decoration: none;
+    border: none;
+    background: none;
 }
-.profile img {
-    height: 100%;
-    border-radius: 999999px;
-}
-.profile p {
+.profile_link p {
     margin-left: 10px;
     color: white;
+    font-size: 16px;
 }
-.profile p:hover {
+.profile_link p:hover {
     text-decoration: underline;
+    cursor: pointer;
+}
+.form {
+	height: 100%;
+	margin-top: 1.9vh;
+}
+.profile {
+    height: 95%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border: none;
+    background: none;
+    margin-left: 10px;
+    color: white;
+    font-size: 16px;
+}
+.profile:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 @media all and (max-width: 2000px){
     .green_head {
@@ -104,9 +122,6 @@
 }
 .panel {
 	display: flex;
-}
-.panel a{
-	margin-left: 1vw;
 }
 
 

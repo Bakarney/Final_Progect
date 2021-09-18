@@ -18,6 +18,10 @@ public class CategoryDAOImpl extends CategoryDAO {
 			"INSERT INTO categories (name) "
 			+ "VALUES (?)";
 	
+	public static final String DELETE =
+			"DELETE FROM producer "
+			+ "WHERE name=?";
+	
 	private static CategoryDAOImpl instance;
 	
 	private CategoryDAOImpl() { }

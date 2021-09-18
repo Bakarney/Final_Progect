@@ -13,7 +13,7 @@ import entities.Product;
 public class ProductDAOImpl extends ProductDAO {
 	
 	public static final String GET = 
-			"SELECT products.id AS id,products.name,description,producer.name AS producer,categories.name AS category,gender,number,price,photo "
+			"SELECT products.id AS id,products.name AS name,description,producer.name AS producer,categories.name AS category,gender,number,price,photo "
 			+ "FROM products "
 			+ "INNER JOIN categories ON categories.id=products.category_id "
 			+ "INNER JOIN producer ON products.producer_id=producer.id "

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +34,7 @@
                     <h1>Beautifully Designed</h1>
                     Our best designers work day and night to make our toys as pleasant and fun as possible for your child. Each of them is a work of children's art.
                     <p></p>
-                    <a class="button" href="http://localhost:8080/final/server/catalog">Get†It†Now!</a>
+                    <a class="button" href="http://localhost:8080/final/server/catalog">Get¬†It¬†Now!</a>
                 </div>
                 <img class="move" src="http://localhost:8080/final/view/media/insta/5f8f84f3d4d23a6c9cf2fcb1_side-image-01.jpg">
             </div>
@@ -44,13 +44,13 @@
                     <h1>Beautifully Designed</h1>
                     Our best designers work day and night to make our toys as pleasant and fun as possible for your child. Each of them is a work of children's art.
                     <p></p>
-                    <a class="button" href="http://localhost:8080/final/server/catalog">Get†It†Now!</a>
+                    <a class="button" href="http://localhost:8080/final/server/catalog">Get¬†It¬†Now!</a>
                 </div>
             </div>
             <div class="story">
                 About The Shop
                 <h1>Watch Our Story</h1>
-                Is's great story about Åour age, heroism and total dedication. You will not regret the time spent.
+                Is's great story about ¬Åour age, heroism and total dedication. You will not regret the time spent.
                 <button onclick="myFunction();return false;">Click me </button>
                 
             </div>
