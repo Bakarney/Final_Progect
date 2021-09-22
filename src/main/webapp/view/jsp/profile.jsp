@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="entities.User" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/main.css">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/profile.css">
-    <script src="main.js"></script>
-    <title>Document</title>
+    <fmt:setLocale value="${lang}"/>
+	<fmt:setBundle basename="resources" var="lang"/>
+    <title><fmt:message key="inter.profile.title" bundle="${lang}"/></title>
 </head>
 <body>
     <jsp:include page="header.jsp"/>
@@ -22,11 +25,11 @@
         <div class="folder">
             <div class="data">
                 <div class="fields">
-                    <p>Name:</p>
-                    <p>Email:</p>
-                    <p>Phone:</p>
-                    <p>Address:</p>
-                    <p>Card:</p>
+                    <p><fmt:message key="inter.profile.name" bundle="${lang}"/></p>
+                    <p><fmt:message key="inter.profile.email" bundle="${lang}"/></p>
+                    <p><fmt:message key="inter.profile.phone" bundle="${lang}"/></p>
+                    <p><fmt:message key="inter.profile.address" bundle="${lang}"/></p>
+                    <p><fmt:message key="inter.profile.card" bundle="${lang}"/></p>
                 </div>
                 <div class="info">
                     <p><%= user.getName() %></p>
@@ -37,7 +40,7 @@
                 </div>
             </div>
             <form method="POST" action="http://localhost:8080/final/server/sign_out">
-            	<input class="button" type="submit" value="Sign Out">
+            	<input class="button" type="submit" value="<fmt:message key="inter.profile.out" bundle="${lang}"/>">
             </form>
         </div>
     </div>

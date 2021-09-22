@@ -3,7 +3,9 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -64,20 +66,39 @@ public class AdminController {
 	}
 	
 	public static void buildOrders(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
-		ProductDAO prodDAO = DAOFactory.getProductDAO();
+		ProductDAO productDAO = DAOFactory.getProductDAO();
 		UserDAO userDAO = DAOFactory.getUserDAO();
 		OrderDAO orderDAO = DAOFactory.getOrderDAO();
 		Map<Integer, String> products = new HashMap<>();
 		Map<Integer, String> users = new HashMap<>();
 		List<Order> orders = orderDAO.getAll();
+		List<Order> preparedOrders = new ArrayList<>();
 		
 		for (Order order : orders) {
-			users.put(order.getUserId(), userDAO.get(order.getUserId()).getName());
-			for (Integer i : order.getCart())
-				products.put(i, prodDAO.get(i).getName());
+			boolean firstIter = true;
+			for (Integer i : order.getCart()) {
+				users.put(order.getUserId(), userDAO.get(order.getUserId()).getName());
+				products.put(i, productDAO.get(i).getName());
+				Order tmpOrder = new Order();
+				if (firstIter) {
+					firstIter = false;
+					tmpOrder.setId(order.getId());
+					tmpOrder.setUserId(order.getUserId());
+					tmpOrder.setState(order.getState());
+					tmpOrder.setCart(order.getCart());
+				} else {
+					tmpOrder.setCart(new ArrayList<>());
+					tmpOrder.getCart().add(i);
+				}
+				preparedOrders.add(tmpOrder);
+			}
 		}
 		
-		request.setAttribute("orders", orders);
+		for (Order order : preparedOrders) {
+			System.out.println(order.getCart().get(0));
+		}
+		
+		request.setAttribute("orders", preparedOrders);
 		request.setAttribute("products", products);
 		request.setAttribute("users", users);
 		
@@ -101,8 +122,7 @@ public class AdminController {
 		response.sendRedirect("http://localhost:8080/final/server/admin_catalog");
 	}
 	
-	
-    public static String saveFile(HttpServletRequest request, HttpServletResponse response, String category) throws ServletException, IOException {
+    private static String saveFile(HttpServletRequest request, HttpServletResponse response, String category) throws ServletException, IOException {
         try {
         	String saveDir = "view/media/" + category;
         	
@@ -180,7 +200,6 @@ public class AdminController {
     public static void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
     	ProductDAO dao = DAOFactory.getProductDAO();
     	dao.delete(Integer.valueOf(request.getParameter("id")));
-    	System.out.println("Here");
     	response.sendRedirect("http://localhost:8080/final/server/admin_catalog");
     }
     

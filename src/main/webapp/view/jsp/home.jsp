@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,36 +10,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/main.css">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/home.css">
-    <script src="main.js"></script>
-    <title>Home</title>
+    <fmt:setLocale value="${lang}"/>
+	<fmt:setBundle basename="resources" var="lang"/>
+    <title><fmt:message key="inter.home.title" bundle="${lang}"/></title>
 </head>
 <body>
     <jsp:include page="header.jsp"/>
-<div class="body">
+	<div class="body">
         <div class="welcome">
-            <h1>Welcome on territory of fun</h1>
-            <a class="button" href="http://localhost:8080/final/server/catalog">Open Catalog</a>
+            <h1><fmt:message key="inter.home.welcome" bundle="${lang}"/></h1>
+            <a class="button" href="http://localhost:8080/final/server/catalog"><fmt:message key="inter.home.catalog.btn" bundle="${lang}"/></a>
         </div>
         <div class="two">
             <div class="t_plastic">
                 <img src="http://localhost:8080/final/view/media/plastic toys/train.png">
                 <div class="t_p_text">
-                    <h1>Plastic Constructor</h1>
-                    <a class="button" href="http://localhost:8080/final/server/catalog">Shop Now</a>
+                    <h1><fmt:message key="inter.home.catalog.plastic" bundle="${lang}"/></h1>
+                    <a class="button" href="http://localhost:8080/final/server/catalog"><fmt:message key="inter.home.catalog.plastic.btn" bundle="${lang}"/></a>
                 </div>
             </div>
             <div class="t_wooden">
                 <div class="t_w_text">
-                    <h1>Wooden Constructor</h1>
-                    <a class="button" href="http://localhost:8080/final/server/catalog">Shop Now</a>
+                    <h1><fmt:message key="inter.home.catalog.wood" bundle="${lang}"/></h1>
+                    <a class="button" href="http://localhost:8080/final/server/catalog"><fmt:message key="inter.home.catalog.wood.btn" bundle="${lang}"/></a>
                 </div>
                 <img src="http://localhost:8080/final/view/media/wooden toys/flower.png">
             </div>
         </div>
         <div class="plastic">
             <div class="p_header">
-                <h1>Plastic constructor</h1>
-                <a href="http://localhost:8080/final/server/catalog" class="p_h_link">See All Toys<img src="http://localhost:8080/final/view/media/5f8f84f3d4d23a31c1f2fcae_arrow-right-mini-icon.svg"></a>
+                <h1><fmt:message key="inter.home.plastic" bundle="${lang}"/></h1>
+                <a href="http://localhost:8080/final/server/catalog" class="p_h_link"><fmt:message key="inter.home.plastic.all" bundle="${lang}"/><img src="http://localhost:8080/final/view/media/5f8f84f3d4d23a31c1f2fcae_arrow-right-mini-icon.svg"></a>
             </div>
             <div class="showcase">
                 <div class="s_row">
@@ -74,8 +77,8 @@
         </div>
         <div class="plastic">
             <div class="p_header">
-                <h1>Wooden Toys</h1>
-                <a href="http://localhost:8080/final/server/catalog" class="p_h_link">See All Toys<img src="http://localhost:8080/final/view/media/5f8f84f3d4d23a31c1f2fcae_arrow-right-mini-icon.svg"></a>
+                <h1><fmt:message key="inter.home.wood" bundle="${lang}"/></h1>
+                <a href="http://localhost:8080/final/server/catalog" class="p_h_link"><fmt:message key="inter.home.wood.all" bundle="${lang}"/><img src="http://localhost:8080/final/view/media/5f8f84f3d4d23a31c1f2fcae_arrow-right-mini-icon.svg"></a>
             </div>
             <div class="showcase">
                 <div class="s_row">
@@ -111,18 +114,18 @@
             </div>
         </div>
         <div class="story">
-            About The Shop
-            <h1>Watch Our Story</h1>
-            Is's great story about courage, heroism and total dedication. You will not regret the time spent.
-            <button onclick="myFunction();return false;">Click me </button>
+            <fmt:message key="inter.home.story.title" bundle="${lang}"/>
+            <h1><fmt:message key="inter.home.story.slogan" bundle="${lang}"/></h1>
+            <fmt:message key="inter.home.story.text" bundle="${lang}"/>
+            <button onclick="myFunction();return false;"><fmt:message key="inter.home.story.btn" bundle="${lang}"/></button>
         </div>
         <div class="video" id="video"></div>
-        <h1 class="text">Simple & Colorful Playtime for All Family</h1>
+        <h1 class="text"><fmt:message key="inter.home.slogan.a" bundle="${lang}"/></h1>
         <div class="ad">
             <div class="a_info">
-                <h1>Don't waste you time!</h1>
-                <p>We have special offers for fun activities for the whole family. The Game Set features several games suitable for everyone, young and old.It includes board games such as Jenga and Wolves and Sheep, as well as two wooden construction sets with fully functioning mechanisms.</p>
-                <a class="button" href="">GET IT NOW!</a>
+                <h1><fmt:message key="inter.home.slogan.b" bundle="${lang}"/></h1>
+                <p><fmt:message key="inter.home.slogan.b.text" bundle="${lang}"/></p>
+                <a class="button" href=""><fmt:message key="inter.home.slogan.btn" bundle="${lang}"/></a>
             </div>
             <img src="http://localhost:8080/final/view/media/5f8f8d03a222a54f11c1161e_26318.jpg">
         </div>

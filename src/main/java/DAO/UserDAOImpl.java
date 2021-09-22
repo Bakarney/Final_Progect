@@ -13,22 +13,22 @@ import entities.User;
 public class UserDAOImpl extends UserDAO {
 	
 	public static final String GET = 
-			"SELECT id,name,email,phone,addres,card "
+			"SELECT id,name,email,phone,address,card "
 			+ "FROM users "
 			+ "WHERE email=? AND users.password=?";
 	
 	public static final String GET_BY_EMAIL = 
-			"SELECT id,name,email,phone,addres,card,admin,status "
+			"SELECT id,name,email,phone,address,card,admin,active "
 			+ "FROM users "
 			+ "WHERE email=?";
 	
 	public static final String GET_BY_ID = 
-			"SELECT id,name,email,phone,addres,card,admin,status "
+			"SELECT id,name,email,phone,address,card,admin,active "
 			+ "FROM users "
 			+ "WHERE id=?";
 	
 	public static final String GET_ALL =
-			"SELECT id,name,email,phone,addres,card,admin,status "
+			"SELECT id,name,email,phone,address,card,admin,active "
 			+ "FROM users";
 	
 	public static final String IS_ADMIN =
@@ -42,17 +42,17 @@ public class UserDAOImpl extends UserDAO {
 			+ "WHERE id=?";
 	
 	public static final String IS_ACTIVE =
-			"SELECT status "
+			"SELECT active "
 			+ "FROM users "
 			+ "WHERE id=?";
 	
 	public static final String ACTIVE = 
 			"UPDATE users "
-			+ "SET status=? "
+			+ "SET active=? "
 			+ "WHERE id=?";
 	
 	public static final String CREATE =
-			"INSERT INTO users (name,users.password,email,phone,addres,card) "
+			"INSERT INTO users (name,users.password,email,phone,address,card) "
 			+ "VALUES (?,?,?,?,?,?)";
 	
 	public static final String DELETE =
@@ -87,7 +87,7 @@ public class UserDAOImpl extends UserDAO {
 				user.setName(res.getString("name"));
 				user.setEmail(res.getString("email"));
 				user.setPhone(res.getString("phone"));
-				user.setAddress(res.getString("addres"));
+				user.setAddress(res.getString("address"));
 				user.setCard(res.getString("card"));
 			}
 			return user;
@@ -116,10 +116,10 @@ public class UserDAOImpl extends UserDAO {
 				user.setName(res.getString("name"));
 				user.setEmail(res.getString("email"));
 				user.setPhone(res.getString("phone"));
-				user.setAddress(res.getString("addres"));
+				user.setAddress(res.getString("address"));
 				user.setCard(res.getString("card"));
 				user.setAdmin(res.getBoolean("admin"));
-				user.setActive(res.getBoolean("status"));
+				user.setActive(res.getBoolean("active"));
 			}
 			return user;
 		} catch (Exception e) {
@@ -147,10 +147,10 @@ public class UserDAOImpl extends UserDAO {
 				user.setName(res.getString("name"));
 				user.setEmail(res.getString("email"));
 				user.setPhone(res.getString("phone"));
-				user.setAddress(res.getString("addres"));
+				user.setAddress(res.getString("address"));
 				user.setCard(res.getString("card"));
 				user.setAdmin(res.getBoolean("admin"));
-				user.setActive(res.getBoolean("status"));
+				user.setActive(res.getBoolean("active"));
 			}
 			return user;
 		} catch (Exception e) {
@@ -179,10 +179,10 @@ public class UserDAOImpl extends UserDAO {
 				user.setName(res.getString("name"));
 				user.setEmail(res.getString("email"));
 				user.setPhone(res.getString("phone"));
-				user.setAddress(res.getString("addres"));
+				user.setAddress(res.getString("address"));
 				user.setCard(res.getString("card"));
 				user.setAdmin(res.getBoolean("admin"));
-				user.setActive(res.getBoolean("status"));
+				user.setActive(res.getBoolean("active"));
 				users.add(user);
 			}
 			return users;

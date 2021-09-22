@@ -148,7 +148,6 @@ public class OrderDAOImpl extends OrderDAO {
 				List<Integer> cart = new ArrayList<>();
 				do {
 					cart.add(Integer.valueOf(res.getString("product_id")));
-					System.out.println(res.getString("id"));
 					flag = res.next();
 				} while (flag && id == Integer.valueOf(res.getString("id")));
 				order.setCart(cart);

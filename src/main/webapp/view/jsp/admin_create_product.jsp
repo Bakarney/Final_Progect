@@ -3,6 +3,8 @@
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.List" %>
 <%@ page import="entities.Product" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,9 @@
 	<link rel="stylesheet" href="http://localhost:8080/final/view/css/header.css">
 	<link rel="stylesheet" href="http://localhost:8080/final/view/css/menu.css">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/admin.css">
-	<title>${product.getName()}</title>
+    <fmt:setLocale value="${lang}"/>
+	<fmt:setBundle basename="resources" var="lang"/>
+	<title><fmt:message key="inter.admin_create_product.title" bundle="${lang}"/></title>
 </head>
 <body>
 	<jsp:include page="admin_header.jsp"/>
@@ -20,35 +24,35 @@
         <form class="folder" method="POST" action="http://localhost:8080/final/server/create_product" enctype="multipart/form-data">
             <table>
                 <tr>
-                    <th>Name</th>
+                    <th><fmt:message key="inter.admin_create_product.name" bundle="${lang}"/></th>
                     <th><input name="name" type="text"></th>
                 </tr>
                 <tr>
-                    <th>Category</th>
+                    <th><fmt:message key="inter.admin_create_product.category" bundle="${lang}"/></th>
                     <th><input name="category" type="text"></th>
                 </tr>
                 <tr>
-                    <th>Gender</th>
+                    <th><fmt:message key="inter.admin_create_product.gender" bundle="${lang}"/></th>
                     <th><input name="gender" type="text"></th>
                 </tr>
                 <tr>
-                    <th>Producer</th>
+                    <th><fmt:message key="inter.admin_create_product.producer" bundle="${lang}"/></th>
                     <th><input name="producer" type="text"></th>
                 </tr>
                 <tr>
-                    <th>Number</th>
+                    <th><fmt:message key="inter.admin_create_product.number" bundle="${lang}"/></th>
                     <th><input  name="number" type="number"></th>
                 </tr>
                 <tr>
-                    <th>Price</th>
+                    <th><fmt:message key="inter.admin_create_product.price" bundle="${lang}"/></th>
                     <th><input name="price" type="number"></th>
                 </tr>
                 <tr>
-                    <th>Photo</th>
+                    <th><fmt:message key="inter.admin_create_product.photo" bundle="${lang}"/></th>
                     <th><input name="photo" type="file"></th>
                 </tr>
             </table>
-            <input class="button" type="submit" value="Create">
+            <input class="button" type="submit" value="<fmt:message key="inter.admin_create_product.create" bundle="${lang}"/>">
         </form>
     </div>
 </body>

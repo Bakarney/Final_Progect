@@ -45,6 +45,8 @@ public class UserController {
 				Order order = orderDao.create(user.getId());
 				for (Integer i : sessionOrder.getCart())
 					orderDao.addProduct(order.getId(), i);
+				sessionOrder.setId(order.getId());
+				session.setAttribute("order", sessionOrder);
 				response.sendRedirect("http://localhost:8080/final/server/profile");
 			} else {
 				session.setAttribute("order", cloudOrder);

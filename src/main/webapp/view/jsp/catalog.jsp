@@ -6,6 +6,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.util.Arrays" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,17 +17,18 @@
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/main.css">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/catalog.css">
     <link rel="stylesheet" href="http://localhost:8080/final/view/css/menu.css">
-    <script src="../main.js"></script>
-    <title>Catalog</title>
+    <fmt:setLocale value="${lang}"/>
+	<fmt:setBundle basename="resources" var="lang"/>
+    <title><fmt:message key="inter.catalog.title" bundle="${lang}"/></title>
 </head>
 <body>
     <jsp:include page="header.jsp"/>
     <div class="body">
         <div class="blank"></div>
         <div class="navigation">
-            <a href="http://localhost:8080/final/server/home">Home</a>
+            <a href="http://localhost:8080/final/server/home"><fmt:message key="inter.catalog.nav.home" bundle="${lang}"/></a>
             <img src="http://localhost:8080/final/view/media/5f8f84f3d4d23a31c1f2fcae_arrow-right-mini-icon.svg">
-            Catalog
+            <fmt:message key="inter.catalog.nav.catalog" bundle="${lang}"/>
         </div>
         <div class="all">
             <div class="a_header">
@@ -36,48 +39,48 @@
 	                </label>
 	                <form class="menu__box">
 	                	<% String sort = request.getParameter("sort"); %>
-	                	<label class="filter_label">Sorted by:</label>
+	                	<label class="filter_label"><fmt:message key="inter.catalog.filter.sort" bundle="${lang}"/></label>
 	                	<div>
                             <input type="radio" id="huey" name="sort" value="a-z" <% if (sort == null || sort.equals("a-z")) out.print("checked"); %>>
-                        	<label for="huey">Name (A-Z)</label>
+                        	<label for="huey"><fmt:message key="inter.catalog.filter.sort.a" bundle="${lang}"/></label>
                         </div>
                         <div>
                             <input type="radio" id="huey" name="sort" value="z-a" <% if (sort != null && sort.equals("z-a")) out.print("checked"); %>>
-                            <label for="huey">Name (Z-A)</label>
+                            <label for="huey"><fmt:message key="inter.catalog.filter.sort.b" bundle="${lang}"/></label>
                         </div>
                         <div>
                             <input type="radio" id="huey" name="sort" value="l-h" <% if (sort != null && sort.equals("l-h")) out.print("checked"); %>>
-                            <label for="huey">Price (Low-High)</label>
+                            <label for="huey"><fmt:message key="inter.catalog.filter.sort.c" bundle="${lang}"/></label>
                         </div>
                         <div>
                             <input type="radio" id="huey" name="sort" value="h-l" <% if (sort != null && sort.equals("h-l")) out.print("checked"); %>>
-                            <label for="huey">Price (High-Low)</label>
+                            <label for="huey"><fmt:message key="inter.catalog.filter.sort.d" bundle="${lang}"/></label>
                         </div>
                         <div>
                             <input type="radio" id="huey" name="sort" value="new" <% if (sort != null && sort.equals("new")) out.print("checked"); %>>
-                            <label for="huey">Novelty (New-Old)</label>
+                            <label for="huey"><fmt:message key="inter.catalog.filter.sort.e" bundle="${lang}"/></label>
                         </div>
                         <div>
                             <input type="radio" id="huey" name="sort" value="old" <% if (sort != null && sort.equals("old")) out.print("checked"); %>>
-                            <label for="huey">Novelty (Old-New)</label>
+                            <label for="huey"><fmt:message key="inter.catalog.filter.sort.f" bundle="${lang}"/></label>
                         </div>
                         
                         <% String gender = request.getParameter("gender"); %>
-                        <label class="filter_label">Gender:</label>
+                        <label class="filter_label"><fmt:message key="inter.catalog.filter.gender" bundle="${lang}"/></label>
                         <div>
                             <input type="radio" id="huey" name="gender" value="male" <% if (gender != null && gender.equals("male")) out.print("checked"); %>>
-                            <label for="huey">Male</label>
+                            <label for="huey"><fmt:message key="inter.catalog.filter.gender.a" bundle="${lang}"/></label>
                         </div>
                         <div>
                             <input type="radio" id="huey" name="gender" value="female" <% if (gender != null && gender.equals("female")) out.print("checked"); %>>
-                            <label for="huey">Female</label>
+                            <label for="huey"><fmt:message key="inter.catalog.filter.gender.b" bundle="${lang}"/></label>
                         </div>
                         <div>
                             <input type="radio" id="huey" name="gender" value="unisex" <% if (gender == null || gender.equals("unisex")) out.print("checked"); %>>
-                            <label for="huey">Unisex</label>
+                            <label for="huey"><fmt:message key="inter.catalog.filter.gender.c" bundle="${lang}"/></label>
                         </div>
                         
-                        <label class="filter_label">Producer:</label>
+                        <label class="filter_label"><fmt:message key="inter.catalog.filter.producer" bundle="${lang}"/></label>
                         <%
                         	String html = "<div>" +
                                     "<input type=\"checkbox\" id=\"huey\" name=\"producer\" value=\"%s\" %s>" + 
@@ -90,7 +93,7 @@
                             }
                         %>
                         
-                 		<label class="filter_label">Category:</label>
+                 		<label class="filter_label"><fmt:message key="inter.catalog.filter.category" bundle="${lang}"/></label>
                  		<%
                         	html = "<div>" +
                                     "<input type=\"checkbox\" id=\"huey\" name=\"category\" value=\"%s\" %s>" + 
@@ -103,15 +106,15 @@
                             }
                         %>
                         
-                        <label class="filter_label">Price:</label>
+                        <label class="filter_label"><fmt:message key="inter.catalog.filter.price" bundle="${lang}"/></label>
                         <div>
-                        	From:
+                        	<fmt:message key="inter.catalog.filter.price.from" bundle="${lang}"/>
                         	<input class="price" type="number" name="bot" value="<%= (request.getParameter("bot") == null) ? "0" : request.getParameter("bot") %>">
-                        	To:
+                        	<fmt:message key="inter.catalog.filter.price.to" bundle="${lang}"/>
                         	<input class="price" type="number" name="top" value="<%= (request.getParameter("top") == null) ? "100" : request.getParameter("top") %>">
                         </div>
                         
-                        <input class="button menu_btn" type="submit" value="Filter">
+                        <input class="button menu_btn" type="submit" value="<fmt:message key="inter.catalog.filter.btn" bundle="${lang}"/>">
 	                </form>
         		</div>
         		<div class="pagin">
@@ -144,9 +147,9 @@
     				else
     					forward = "class=\"button\" href=\"" + forward + "\"";
         			%>
-        			<a <%= backward %>>Backward</a>
+        			<a <%= backward %>><fmt:message key="inter.catalog.page.backward" bundle="${lang}"/></a>
         			<p><%= pageNum + "/" + totalNum %></p>
-        			<a <%= forward %>>Forward</a>
+        			<a <%= forward %>><fmt:message key="inter.catalog.page.forward" bundle="${lang}"/></a>
         		</div>
             </div>
             <div class="showcase">

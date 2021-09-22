@@ -30,13 +30,9 @@ public class Test extends HttpServlet {
 	private static final long serialVersionUID = -1822377043264836486L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		OrderDAO dao = DAOFactory.getOrderDAO();
-		PrintWriter writer = response.getWriter();
-		try {
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		ServletContext servletContext = getServletContext();
+		RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/Test.jsp");
+		requestDispatcher.forward(request, response);
     }
 
 	@Override
