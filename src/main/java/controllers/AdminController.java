@@ -94,10 +94,6 @@ public class AdminController {
 			}
 		}
 		
-		for (Order order : preparedOrders) {
-			System.out.println(order.getCart().get(0));
-		}
-		
 		request.setAttribute("orders", preparedOrders);
 		request.setAttribute("products", products);
 		request.setAttribute("users", users);
@@ -115,7 +111,8 @@ public class AdminController {
 		prod.setProducer(request.getParameter("producer"));
 		prod.setNumber(Integer.valueOf(request.getParameter("number")));
 		prod.setPrice(Float.valueOf(request.getParameter("price")));
-		prod.setPhoto(saveFile(request, response, prod.getCategory()));
+		if (request.getParameter("photo") != null)
+			prod.setPhoto(saveFile(request, response, prod.getCategory()));
 		ProductDAO dao = DAOFactory.getProductDAO();
 		dao.update(prod);
 		
@@ -125,57 +122,40 @@ public class AdminController {
     private static String saveFile(HttpServletRequest request, HttpServletResponse response, String category) throws ServletException, IOException {
         try {
         	String saveDir = "view/media/" + category;
-        	
-            // Gets absolute path to root directory of web app.
             String appPath = request.getServletContext().getRealPath("");
             appPath = appPath.replace('\\', '/');
- 
-            // The directory to save uploaded file
             String fullSavePath = null;
             if (appPath.endsWith("/")) {
                 fullSavePath = appPath + saveDir;
             } else {
                 fullSavePath = appPath + "/" + saveDir;
             }
- 
-            // Creates the save directory if it does not exists
             File fileSaveDir = new File(fullSavePath);
             if (!fileSaveDir.exists()) {
                 fileSaveDir.mkdir();
             }
- 
             String fileName = null;
-            // Part list (multi files).
             for (Part part : request.getParts()) {
                 fileName = extractFileName(part);
                 if (fileName != null && fileName.length() > 0) {
                     String filePath = fullSavePath + File.separator + fileName;
-                    // Write to file
                     part.write(filePath);
                 }
             }
-            // Upload successfully!.
             return fileName;
         } catch (Exception e) {
-        	// TODO: manage Error
             throw new IOException("Can not saveFile", e);
         }
     }
  
     private static String extractFileName(Part part) {
-        // form-data; name="file"; filename="C:\file1.zip"
-        // form-data; name="file"; filename="C:\Note\file2.zip"
         String contentDisp = part.getHeader("content-disposition");
         String[] items = contentDisp.split(";");
         for (String s : items) {
             if (s.trim().startsWith("filename")) {
-                // C:\file1.zip
-                // C:\Note\file2.zip
                 String clientFileName = s.substring(s.indexOf("=") + 2, s.length() - 1);
                 clientFileName = clientFileName.replace("\\", "/");
                 int i = clientFileName.lastIndexOf('/');
-                // file1.zip
-                // file2.zip
                 return clientFileName.substring(i + 1);
             }
         }
@@ -190,7 +170,8 @@ public class AdminController {
 		prod.setProducer(request.getParameter("producer"));
 		prod.setNumber(Integer.valueOf(request.getParameter("number")));
 		prod.setPrice(Float.valueOf(request.getParameter("price")));
-		prod.setPhoto(saveFile(request, response, prod.getCategory()));
+		if (request.getParameter("photo") != null)
+			prod.setPhoto(saveFile(request, response, prod.getCategory()));
 		ProductDAO dao = DAOFactory.getProductDAO();
 		dao.create(prod);
 		

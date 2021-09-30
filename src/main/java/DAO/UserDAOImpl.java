@@ -13,7 +13,7 @@ import entities.User;
 public class UserDAOImpl extends UserDAO {
 	
 	public static final String GET = 
-			"SELECT id,name,email,phone,address,card "
+			"SELECT id,name,email,phone,address,card,active,admin "
 			+ "FROM users "
 			+ "WHERE email=? AND users.password=?";
 	
@@ -89,6 +89,8 @@ public class UserDAOImpl extends UserDAO {
 				user.setPhone(res.getString("phone"));
 				user.setAddress(res.getString("address"));
 				user.setCard(res.getString("card"));
+				user.setActive(res.getBoolean("active"));
+				user.setAdmin(res.getBoolean("admin"));
 			}
 			return user;
 		} catch (Exception e) {

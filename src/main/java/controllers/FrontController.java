@@ -57,7 +57,8 @@ public class FrontController extends HttpServlet {
 				break;
 			case "/profile":
 				if (request.getSession().getAttribute("user") != null) {
-					UserController.profile(request, response, servletContext);
+					requestDispatcher = servletContext.getRequestDispatcher("/view/jsp/profile.jsp");
+					requestDispatcher.forward(request, response);
 				} else {
 					response.sendRedirect("http://localhost:8080/final/server/sign_in");
 				}

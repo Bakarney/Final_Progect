@@ -25,12 +25,12 @@ public class UserController {
 			response.sendRedirect("http://localhost:8080/final/server/sign_in?error=wrong");
 			return;
 		}
-		if (!dao.isActive(user.getId())) {
+		if (!user.isActive()) {
 			response.sendRedirect("http://localhost:8080/final/server/sign_in?error=blocked");
 			return;
 		}
 		session.setAttribute("user", user);
-		if (dao.isAdmin(user.getId())) {
+		if (user.isAdmin()) {
 			response.sendRedirect("http://localhost:8080/final/server/admin_catalog");
 		}
 		else {
@@ -64,14 +64,11 @@ public class UserController {
 		user.setAddress(request.getParameter("address"));
 		user.setCard(request.getParameter("card"));
 		UserDAO dao = DAOFactory.getUserDAO();
-		dao.create(user);
-		request.getSession().setAttribute("user", user);
-		response.sendRedirect("http://localhost:8080/final/server/profile");
-	}
-	
-	public static void profile(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws ServletException, IOException, SQLException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/view/jsp/profile.jsp");
-		requestDispatcher.forward(request, response);
+		if (dao.create(user)) {
+			request.getSession().setAttribute("user", user);
+			response.sendRedirect("http://localhost:8080/final/server/profile");
+		} else
+			response.sendRedirect("http://localhost:8080/final/server/sign_up?error=exsist");
 	}
 	
 	public static void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {

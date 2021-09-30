@@ -66,6 +66,22 @@ public class OrderController {
 		response.sendRedirect("http://localhost:8080/final/server/product?id=" + id);
 	}
 	
+	public static void removeProducts(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		HttpSession session = request.getSession();
+		Order order = (Order)session.getAttribute("order");
+		order.getCart().remove(id);
+		session.setAttribute("order", order);
+		
+		OrderDAO dao = DAOFactory.getOrderDAO();
+		dao.removeProduct(order.getId(), id);
+		
+		if (dao.get(order.getId()) == null)
+			dao.delete(order.getId());
+		
+		response.sendRedirect("http://localhost:8080/final/server/cart");
+	}
+	
 	public static void confirmOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		int id = Integer.valueOf(request.getParameter("order_id"));
 		HttpSession session = request.getSession();
@@ -133,21 +149,5 @@ public class OrderController {
 			break;
 		}
 		response.sendRedirect("http://localhost:8080/final/server/profile");
-	}
-	
-	public static void removeProducts(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-		Integer id = Integer.valueOf(request.getParameter("id"));
-		HttpSession session = request.getSession();
-		Order order = (Order)session.getAttribute("order");
-		order.getCart().remove(id);
-		session.setAttribute("order", order);
-		
-		OrderDAO dao = DAOFactory.getOrderDAO();
-		dao.removeProduct(order.getId(), id);
-		
-		if (dao.get(order.getId()) == null)
-			dao.delete(order.getId());
-		
-		response.sendRedirect("http://localhost:8080/final/server/cart");
 	}
 }

@@ -30,12 +30,12 @@ public class AuthorizationCheck implements Filter {
 		url = url.replaceAll(".*/server", "");
 		UserDAO dao = DAOFactory.getUserDAO();
 
-//		try {
-//			if (Arrays.stream(adminURLs).anyMatch(url::equals) && (user == null || !dao.isAdmin(user.getId())))
-//				res.sendError(404);
-//		} catch (Exception e) {
-//			throw new ServletException("Page not found", e);
-//		}
+		try {
+			if (Arrays.stream(adminURLs).anyMatch(url::equals) && (user == null || !dao.isAdmin(user.getId())))
+				res.sendError(404);
+		} catch (Exception e) {
+			throw new ServletException("Page not found", e);
+		}
 		
 		chain.doFilter(request, response);
 	}
