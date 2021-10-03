@@ -51,21 +51,13 @@ public class ProductControllerTest {
 	@Test
 	public void buildTest() throws SQLException, ServletException, IOException {
 		String aim = "/view/jsp/product.jsp";
+		int product_id = 1;
 		
-		Mockito.when(request.getParameter("id")).thenReturn("1");
+		Mockito.when(request.getParameter("id")).thenReturn(String.valueOf(product_id));
 		Mockito.when(servletContext.getRequestDispatcher(aim)).thenReturn(requestDispatcher);
 		
 		Product prod = new Product();
-		prod.setId(1);
-		prod.setName("test");
-		prod.setCategory("test");
-		prod.setDescription(null);
-		prod.setGender("test");
-		prod.setNumber(13);
-		prod.setPhoto("test");
-		prod.setPrice(13);
-		prod.setProducer("test");
-		Mockito.when(productDAO.get(1)).thenReturn(prod);
+		Mockito.when(productDAO.get(product_id)).thenReturn(prod);
 		
 		ProductController.build(request, response, servletContext);
 		

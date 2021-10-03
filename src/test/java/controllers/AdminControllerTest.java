@@ -147,15 +147,6 @@ public class AdminControllerTest {
 		Mockito.when(servletContext.getRequestDispatcher(aim)).thenReturn(requestDispatcher);
 		
 		Product prod = new Product();
-		prod.setId(1);
-		prod.setName("test");
-		prod.setCategory("test");
-		prod.setDescription(null);
-		prod.setGender("test");
-		prod.setNumber(13);
-		prod.setPhoto("test");
-		prod.setPrice(13);
-		prod.setProducer("test");
 		Mockito.when(productDAO.get(1)).thenReturn(prod);
 		
 		AdminController.buildProduct(request, response, servletContext);

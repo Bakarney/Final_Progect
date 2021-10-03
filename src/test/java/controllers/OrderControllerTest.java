@@ -1,8 +1,5 @@
 package controllers;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -171,7 +167,6 @@ public class OrderControllerTest {
 	
 	@Test
 	public void removeProductWithDBTest() throws IOException, SQLException {
-		User user = new User();
 		Order order = new Order();
 		order.setCart(new ArrayList<>());
 		order.getCart().add(3);
@@ -202,11 +197,10 @@ public class OrderControllerTest {
 	}
 	
 	@Test
-	public void confirmOrderNoUserTest() throws IOException, SQLException {
+	public void confirmOrderIfUserTest() throws IOException, SQLException {
 		String orderId = "1";
-		User user = null;
-		String finalState = "registrated";
-		String aim = "http://localhost:8080/final/server/sign_in";
+		User user = new User();
+		String aim = "http://localhost:8080/final/server/home";
 		
 		Mockito.when(request.getParameter("order_id")).thenReturn(orderId);
 		Mockito.when(session.getAttribute("user")).thenReturn(user);
