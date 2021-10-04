@@ -245,8 +245,11 @@ public class AdminController {
 		prod.setProducer(request.getParameter("producer"));
 		prod.setNumber(Integer.valueOf(request.getParameter("number")));
 		prod.setPrice(Float.valueOf(request.getParameter("price")));
-		if (request.getParameter("photo") != null)
+		try {
 			prod.setPhoto(saveFile(request, response, prod.getCategory()));
+		} catch (IOException e) {
+			prod.setPhoto(null);
+		}
 		ProductDAO dao = DAOFactory.getProductDAO();
 		dao.create(prod);
 		

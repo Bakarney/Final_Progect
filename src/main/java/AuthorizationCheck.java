@@ -36,12 +36,14 @@ public class AuthorizationCheck implements Filter {
 		UserDAO dao = DAOFactory.getUserDAO();
 
 		try {
-			if (Arrays.stream(adminURLs).anyMatch(url::equals) && (user == null || !dao.isAdmin(user.getId())))
+			if (Arrays.stream(adminURLs).anyMatch(url::equals) && (user == null || !dao.isAdmin(user.getId()))) {
 				res.sendError(403, "Access denied");
+			}
+			else {
+				chain.doFilter(request, response);
+			}
 		} catch (Exception e) {
 			throw new ServletException("Page not found", e);
 		}
-		
-		chain.doFilter(request, response);
 	}
 }
