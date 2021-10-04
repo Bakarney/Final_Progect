@@ -11,12 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @WebServlet("/server/*")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 	maxFileSize = 1024 * 1024 * 10, // 10MB
 	maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	static final Logger logger = LogManager.getLogger(FrontController.class);
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
@@ -94,8 +99,8 @@ public class FrontController extends HttpServlet {
 				break;
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+			throw new ServletException(e.getMessage(), e);
 		}
 	}
 	
@@ -154,8 +159,8 @@ public class FrontController extends HttpServlet {
 				break;
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+			throw new ServletException(e.getMessage(), e);
 		}
 	}
 }

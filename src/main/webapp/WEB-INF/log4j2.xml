@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
- 
-    <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-        </Console>
-    </Appenders>
- 
-    <Loggers>
-        <Root level="all">
-            <AppenderRef ref="Console"/>
-        </Root>
-    </Loggers>
- 
- 
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <File name="Requests" fileName="C:/Users/admin/Desktop/Работа/EPAM/logs/final-servlet/requests.log">
+        <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+    <File name="Errors" fileName="C:/Users/admin/Desktop/Работа/EPAM/logs/final-servlet/errors.log">
+        <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+    <File name="All" fileName="C:/Users/admin/Desktop/Работа/EPAM/logs/final-servlet/all.log">
+        <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+  </Appenders>
+  <Loggers>
+    <Logger name="LogingFilter" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="Requests"/>
+    </Logger>
+    <Root level="all">
+      <AppenderRef ref="Console" level="debug"/>
+      <AppenderRef ref="Errors" level="error"/>
+      <AppenderRef ref="All" level="all"/>
+    </Root>
+  </Loggers>
 </Configuration>
