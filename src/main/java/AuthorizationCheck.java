@@ -32,7 +32,7 @@ public class AuthorizationCheck implements Filter {
 
 		try {
 			if (Arrays.stream(adminURLs).anyMatch(url::equals) && (user == null || !dao.isAdmin(user.getId())))
-				res.sendError(404);
+				res.sendError(403, "Access denied");
 		} catch (Exception e) {
 			throw new ServletException("Page not found", e);
 		}
