@@ -49,6 +49,11 @@ public class CatalogController {
 		ProductDAO productDao = DAOFactory.getProductDAO();
 		List<Product> products = productDao.getFiltered(categoriesData, producersData, gender, bot, top, sort, start, String.valueOf(PAGE_LENGTH));
 		int numberPages = (productDao.count(categoriesData, producersData, gender, bot, top) - 1)/PAGE_LENGTH + 1;
+		
+		for (Product prod : products) 
+			if (prod.getPhoto() == null)
+				prod.setPhoto("no_img.jpg");
+		
 		request.setAttribute("products", products);
 		request.setAttribute("numberPages", numberPages);
 		
