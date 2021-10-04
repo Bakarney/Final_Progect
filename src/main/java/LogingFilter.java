@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * @author Naberezhniy Artur
+ * 
+ * Logs all request to the server.
+ */
 @WebFilter("/*")
 public class LogingFilter implements Filter {
 	

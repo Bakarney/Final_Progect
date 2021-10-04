@@ -20,8 +20,27 @@ import javax.servlet.http.Part;
 import DAO.*;
 import entities.*;
 
+/**
+ * @author Naberezhniy Artur
+ * 
+ * AdminController consists only static methods. They must implement all
+ * needed logic for admin panel of web app.
+ */
 public class AdminController {
 	
+	/**
+	 * Creating lists of all products, categories and producers from DB and puts
+	 * in request attributes with corresponding names.
+	 * Making request to DAO with unnecessary request parameters "sort", "gender", 
+	 * "producer", "category", "bot", "top".
+	 * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+	 * @param ServletContext
+	 * @throws SQLException
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public static void buildCatalog(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
 		String sort = request.getParameter("sort");
 		String gender = request.getParameter("gender");
@@ -46,6 +65,17 @@ public class AdminController {
 		requestDispatcher.forward(request, response);
 	}
 	
+	/**
+	 * Making request to DAO with request parameter "id", and puts found Product
+	 * to request attributes with name "product".
+	 * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+	 * @param ServletContext
+	 * @throws SQLException
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public static void buildProduct(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
 		ProductDAO dao = DAOFactory.getProductDAO();
 		int id = Integer.valueOf(request.getParameter("id"));
@@ -56,6 +86,16 @@ public class AdminController {
 		requestDispatcher.forward(request, response);
 	}
 	
+	/**
+	 * Making List of all Users from DAO and puts it in request attribute "users".
+	 * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+	 * @param ServletContext
+	 * @throws SQLException
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public static void buildUsers(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
 		UserDAO userDao = DAOFactory.getUserDAO();
 		List<User> users = userDao.getAll();
@@ -65,6 +105,20 @@ public class AdminController {
 		requestDispatcher.forward(request, response);
 	}
 	
+	/**
+	 * Making List of all Orders from DAO and puts it in request attribute "orders".
+	 * In orders list after each order goes empty orders containing only info
+	 * about one product of this order.
+	 * Also making Map of all user id to their names and all products id and
+	 * their names.
+	 * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+	 * @param ServletContext
+	 * @throws SQLException
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public static void buildOrders(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
 		ProductDAO productDAO = DAOFactory.getProductDAO();
 		UserDAO userDAO = DAOFactory.getUserDAO();
@@ -102,6 +156,17 @@ public class AdminController {
 		requestDispatcher.forward(request, response);
 	}
 	
+	/**
+	 * Taking request parameters "id", "name", "category", "gender", "producer",
+	 * "number", "price", "photo". Changes all information about product with 
+	 * taken id. 
+	 * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+	 * @throws SQLException
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public static void updateProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		Product prod = new Product();
 		prod.setId(Integer.valueOf(request.getParameter("id")));
@@ -162,6 +227,16 @@ public class AdminController {
         return null;
     }
     
+    /**
+	 * Taking request parameters "name", "category", "gender", "producer",
+	 * "number", "price", "photo" and creation new Product in DB.
+     * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+     * @throws SQLException
+     * @throws ServletException
+     * @throws IOException
+     */
     public static void createProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
     	Product prod = new Product();
 		prod.setName(request.getParameter("name"));
@@ -178,12 +253,30 @@ public class AdminController {
 		response.sendRedirect("http://localhost:8080/final/server/admin_catalog");
     }
     
+    /**
+	 * Taking request parameter "id", and deletes product with this id from DB.
+     * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+     * @throws SQLException
+     * @throws ServletException
+     * @throws IOException
+     */
     public static void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
     	ProductDAO dao = DAOFactory.getProductDAO();
     	dao.delete(Integer.valueOf(request.getParameter("id")));
     	response.sendRedirect("http://localhost:8080/final/server/admin_catalog");
     }
     
+    /**
+     * Taking request parameter "id", and changes status of user with this id.
+     * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+     * @throws SQLException
+     * @throws ServletException
+     * @throws IOException
+     */
     public static void blockUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
     	UserDAO dao = DAOFactory.getUserDAO();
     	int id = Integer.valueOf(request.getParameter("id"));
@@ -191,6 +284,15 @@ public class AdminController {
     	response.sendRedirect("http://localhost:8080/final/server/admin_users");
     }
     
+    /**
+     * Taking request parameter "id", and changes admin of user with this id.
+     * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+     * @throws SQLException
+     * @throws ServletException
+     * @throws IOException
+     */
     public static void adminUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
     	UserDAO dao = DAOFactory.getUserDAO();
     	int id = Integer.valueOf(request.getParameter("id"));
@@ -198,12 +300,31 @@ public class AdminController {
     	response.sendRedirect("http://localhost:8080/final/server/admin_users");
     }
     
+    /**
+	 * Taking request parameter "id", and deletes user with this id from DB.
+     * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+     * @throws SQLException
+     * @throws ServletException
+     * @throws IOException
+     */
     public static void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
     	UserDAO dao = DAOFactory.getUserDAO();
     	dao.delete(Integer.valueOf(request.getParameter("id")));
     	response.sendRedirect("http://localhost:8080/final/server/admin_users");
     }
     
+    /**
+     * Taking request parameter "id", and changes status of order with this id
+     * to "paid".
+     * 
+ 	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+     * @throws SQLException
+     * @throws ServletException
+     * @throws IOException
+     */
     public static void setPaid(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
     	OrderDAO orderDAO = DAOFactory.getOrderDAO();
     	int id = Integer.valueOf(request.getParameter("id"));
@@ -212,6 +333,16 @@ public class AdminController {
     	response.sendRedirect("http://localhost:8080/final/server/admin_orders");
     }
     
+    /**
+     * Taking request parameter "id", and changes status of order with this id
+     * to "rejected".
+     * 
+ 	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+     * @throws SQLException
+     * @throws ServletException
+     * @throws IOException
+     */
     public static void rejectOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
     	OrderDAO orderDAO = DAOFactory.getOrderDAO();
     	int id = Integer.valueOf(request.getParameter("id"));

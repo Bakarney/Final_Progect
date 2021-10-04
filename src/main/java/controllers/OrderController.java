@@ -15,8 +15,25 @@ import javax.servlet.http.HttpSession;
 import DAO.*;
 import entities.*;
 
+/**
+ * @author Naberezhniy Artur
+ * 
+ * Contains static methods to manage orders.
+ */
 public class OrderController {
 	
+	/**
+	 * Making List of products of order from session or from DB, if session
+	 * contains parameter "user". If both of them isn't in session will return
+	 * empty List.
+	 * 
+	 * @param request
+	 * @param response
+	 * @param servletContext
+	 * @throws SQLException
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public static void build(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
 		OrderDAO orderDao = DAOFactory.getOrderDAO();
 		ProductDAO prodDAO = DAOFactory.getProductDAO();
@@ -40,6 +57,15 @@ public class OrderController {
 		requestDispatcher.forward(request, response);
 	}
 	
+	/**
+	 * Taking "product_id" from request parameters and adding it to order from 
+	 * session or from DB, if session contains parameter "user".
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public static void addProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		int id = Integer.valueOf(request.getParameter("product_id"));
 		OrderDAO dao = DAOFactory.getOrderDAO();
@@ -66,6 +92,15 @@ public class OrderController {
 		response.sendRedirect("http://localhost:8080/final/server/product?id=" + id);
 	}
 	
+	/**
+	 * Taking "id" from request parameters and removing it from orders product List
+	 * from session or from DB, if session contains parameter "user".
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public static void removeProducts(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		HttpSession session = request.getSession();
@@ -82,6 +117,15 @@ public class OrderController {
 		response.sendRedirect("http://localhost:8080/final/server/cart");
 	}
 	
+	/**
+	 * Setting status of order to "registrated" or redirects to sign in page if
+	 * user isn't authorized.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public static void confirmOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		int id = Integer.valueOf(request.getParameter("order_id"));
 		HttpSession session = request.getSession();
@@ -97,6 +141,16 @@ public class OrderController {
 		}
 	}
 	
+	/**
+	 * Preparing lists of cloud and local orders for order conflict page.
+	 * 
+	 * @param request
+	 * @param response
+	 * @param servletContext
+	 * @throws SQLException
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public static void orderConflict(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws SQLException, ServletException, IOException {
 		ProductDAO prodDAO = DAOFactory.getProductDAO();
 		HttpSession session = request.getSession();
@@ -117,6 +171,14 @@ public class OrderController {
 		requestDispatcher.forward(request, response);
 	}
 	
+	/**
+	 * Saving local, cloud or combined carts due to request parameter "command".
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public static void manageCarts(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		String command = request.getParameter("command");
 		HttpSession session = request.getSession();

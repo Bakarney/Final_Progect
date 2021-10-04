@@ -28,6 +28,7 @@ import DAO.*;
 import entities.*;
 import controllers.*;
   
+/** If you see it CLOSE YOUR EYES! */
 @WebServlet("/test")
 public class Test extends HttpServlet {
   

@@ -14,10 +14,27 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.*;
 import entities.*;
 
+/**
+ * @author Naberezhniy Artur
+ * 
+ * Catalog controller contains static methods to manage catalog page.
+ */
 public class CatalogController {
 	
+	/** Number of products on each page */
 	private static final int PAGE_LENGTH = 4;
 	
+	/**
+	 * Creating lists of products, categories and producers from DB and puts
+	 * in request attributes with corresponding names.
+	 * Making request to DAO with unnecessary request parameters "sort", "gender", 
+	 * "producer", "category", "bot", "top", "page".
+	 * 
+	 * @param request
+	 * @param response
+	 * @param servletContext
+	 * @throws Exception
+	 */
 	public static void build(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws ServletException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, SQLException {
 		String sort = request.getParameter("sort");
 		String gender = request.getParameter("gender");

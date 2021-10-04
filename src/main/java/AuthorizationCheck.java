@@ -15,10 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import entities.*;
 import DAO.*;
 
-
+/**
+ * @author Naberezhniy Artur
+ * 
+ * Checks that no admin users trying to get to admin pages.
+ */
 @WebFilter("/*")
 public class AuthorizationCheck implements Filter {
 	
+	/** List of admin pages */
 	private static final String[] adminURLs = new String[] {"/admin_catalog", "/admin_users", "/admin_product", "/delete_product",
 			"/block_user", "/admin_user", "/delete_user", "/set_paid", "/reject_order", "/create_product", "/admin_orders"};
 

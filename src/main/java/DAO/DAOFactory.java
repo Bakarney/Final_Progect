@@ -1,5 +1,11 @@
 package DAO;
 
+/**
+ * 
+ * @author Naberezhniy Artur
+ * 
+ * Returns instances of DAO objects implementations.
+ */
 public class DAOFactory {
 	
 	public synchronized static UserDAO getUserDAO() {

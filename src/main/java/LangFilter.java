@@ -8,6 +8,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author Naberezhniy Artur
+ * 
+ * Checks if someone trying to change language.
+ */
 @WebFilter("/server/*")
 public class LangFilter implements Filter {
 	

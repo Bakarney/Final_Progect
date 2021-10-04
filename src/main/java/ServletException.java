@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author Naberezhniy Artur
+ * 
+ * Preparing error page.
+ */
 @WebServlet("/error")
 public class ServletException extends HttpServlet {
 

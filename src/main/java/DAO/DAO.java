@@ -5,6 +5,12 @@ import java.sql.*;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
+/**
+ * 
+ * @author Naberezhniy Artur
+ * 
+ * Gives basic methods to interact with DB.
+ */
 public abstract class DAO {
 	
     private static BasicDataSource ds = new BasicDataSource();

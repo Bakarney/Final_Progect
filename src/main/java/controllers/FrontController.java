@@ -14,11 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * @author Naberezhniy Artur
+ * 
+ * This is front controller.
+ * It collects all requests to server and delegates them to other controllers.
+ * FrontController doesn't have any logic in it, and only redirects requests
+ * to pages and calling other controllers.
+ */
+
 @WebServlet("/server/*")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 	maxFileSize = 1024 * 1024 * 10, // 10MB
 	maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class FrontController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	
 	static final Logger logger = LogManager.getLogger(FrontController.class);

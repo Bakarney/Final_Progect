@@ -14,7 +14,21 @@ import javax.servlet.http.HttpSession;
 import DAO.*;
 import entities.*;
 
+/**
+ * @author Naberezhniy Artur
+ * 
+ * Contains static methods to manage users.
+ */
 public class UserController {
+	
+	/**
+	 * Adding to session attribute user if it active and his email and password 
+	 * is correct. If user is admin redirects him to admin page.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
 	public static void signIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -55,6 +69,13 @@ public class UserController {
 		}
 	}
 	
+	/**
+	 * Adding new user to BD if user with this email is not exists.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
 	public static void signUp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		User user = new User();
 		user.setName(request.getParameter("name"));
@@ -68,9 +89,16 @@ public class UserController {
 			request.getSession().setAttribute("user", user);
 			response.sendRedirect("http://localhost:8080/final/server/profile");
 		} else
-			response.sendRedirect("http://localhost:8080/final/server/sign_up?error=exsist");
+			response.sendRedirect("http://localhost:8080/final/server/sign_up?error=exists");
 	}
 	
+	/**
+	 * Removing parameters "user" and "order" from session.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
 	public static void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		request.getSession().removeAttribute("user");
 		request.getSession().removeAttribute("order");
